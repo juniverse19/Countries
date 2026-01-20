@@ -69,33 +69,47 @@ public class Main
     // Use the following code to create a new Image Icon and put it into the GUI
     img = new ImageIcon("/workspaces/Countries/workspace/"+imagefile);
     imageLabel.setIcon(img);
-    outputLabel.setText("Which country is this?");
+    outputLabel.setText("What's this country's name?");
   }
   
   /* nextButton should increment index. If the index is greater than 9, reset it back to 0. Clear the outputLabel to empty string using setText, and call showCountry();*/
   public void nextButtonClick()
   {
-    
+    index++;
+    if (index > 9) {
+      index = 0;
+    }
+    outputLabel.setText("");
+    showCountry();
   }
   
-  /* reviewButton should get the country at index from the countryArray, call its toString() method and save the result, print it out with System.out.println and as an argument to outputLabel.setText( text to print out ); */
+  /* reviewButton should get the country at index from the countryArray, call its toString() method and save the result, 
+  print it out with System.out.println and as an argument to outputLabel.setText( text to print out ); */
   public void reviewButtonClick()
   {
-     
+    Country c = countryArray[index];
+    String countryInfo = c.toString();
+    System.out.println(countryInfo);
+    outputLabel.setText(countryInfo);
   }
 
-  /* quizButton should clear the outputLabel (outputLabel.setText to empty string), get the country at index from countryArray, print out a question about it like What country is this? and/or What's this country's capital?. Get the user's answer using scan.nextLine() and check if it is equal to the country's data using its get methods and print out correct or incorrect.
+  /* quizButton should clear the outputLabel (outputLabel.setText to empty string), get the country at index from countryArray, 
+  print out a question about it like What country is this? and/or What's this country's capital?. 
+  Get the user's answer using scan.nextLine() and check if it is equal to the country's data using its get methods and print out 
+  correct or incorrect.
   */
   public void quizButtonClick()
   {
-    Scanner scan = new Scanner(System.in); 
+    Country c = countryArray[index];
+    String userAnswer = userInput.getText();
     
-    
-    
+    if (userAnswer.equals(c.getName())) {
+      outputLabel.setText("Correct!");
+    } else {
+      outputLabel.setText("Incorrect. The answer is: " + c.getName());
+    }
+    userInput.setText("");
   }
-
-
-
 
   /* You are not required to change anythign below here. You do so at your own risk! */
   /* The Main() constructor is finished and will construct the GUI */

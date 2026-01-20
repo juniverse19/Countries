@@ -14,10 +14,6 @@ public class Country
       this.imageFileName = imageFileName;
     }
 
-    public Country() {
-
-    }
-
   // Write accessor/get methods for each instance variable that returns it.
     public String getName() { return name; }
     public String getCapital() { return capital; }
@@ -28,7 +24,4 @@ public class Country
     public String toString() {
       return (name + "'s capital is " + capital + " and its primary language is " + language);
     }
-
-
-  
 }
