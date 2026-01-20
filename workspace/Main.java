@@ -30,28 +30,46 @@ public class Main
   /* loadCountries() reads in the data from the countries-data.csv file and fills in the countryArray with data. You need to add the loop that reads in the country data into the array. */
   public void loadCountries() 
   {
-    // Open the data file. Please note that the file structure we're working with requires the full file path as shown here unlike what you saw in runestone where the file name was sufficient.
-    File file = new File("/workspaces/Countries/workspace/countries-data.csv");
     
+    // Open the data file. Please note that the file structure we're working with requires the full file path as shown here unlike what you saw in runestone where the file name was sufficient.
+    
+    try{
+    File file = new File("/workspaces/Countries/workspace/countries-data.csv");
+
     //create a scanner and a loop to read from the file until you've read everything.
     // inside the loop you'll need to read in a line from the file and use "split" to break up the data into destinct parts.
     // create a new Country using your constructor with 4 arguments (each of the arguments is a different part of the line you've read in)
     // inside the loop, set countryArray[i] to the created Country object
     //after running this method your array should contain all 10 countries from inside the countries-data file.
-     
     
+    Scanner scan = new Scanner(file);
+    int i = 0;
+    while(scan.hasNext()){
+
+      String nextTest = scan.nextLine();
+      String[] parts = nextTest.split(",");
+      countryArray[i] = new Country(parts[0], parts[1], parts[2], parts[3]);
+      i++;
+    }
+    scan.close();
+    }
+    
+    catch(IOException e){
+      System.out.println("The file can't be opened");
+    }
   }
 
   /* showCountry() will show the image associated with the current country. It should get the country at index from the countryArray. It should use its get method to get its image file name and use the code below to put the image in the GUI.
   */
   public void showCountry() {
     // Get the country at index from countryArray
-    
+    Country c = countryArray[index];
     // Use its get method to get the its image file name and save it into imagefile variable below instead of worldmap.jpg.
-    String imagefile = "worldmap.jpg";
-    // Use the following code to create an new Image Icon and put it into the GUI
+    String imagefile = c.getImgF();
+    // Use the following code to create a new Image Icon and put it into the GUI
     img = new ImageIcon("/workspaces/Countries/workspace/"+imagefile);
     imageLabel.setIcon(img);
+    outputLabel.setText("Which country is this?");
   }
   
   /* nextButton should increment index. If the index is greater than 9, reset it back to 0. Clear the outputLabel to empty string using setText, and call showCountry();*/
@@ -82,9 +100,10 @@ public class Main
   /* You are not required to change anythign below here. You do so at your own risk! */
   /* The Main() constructor is finished and will construct the GUI */
 public Main() {
-    jFrame.setLayout(new FlowLayout());
-    jFrame.setSize(500, 360);
+        jFrame.setLayout(new FlowLayout());
+        jFrame.setSize(500, 360);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         // buttons at the top
         JButton reviewButton = new JButton("Review");
         JButton quizButton = new JButton("Quiz");
@@ -101,12 +120,12 @@ public Main() {
         outputLabel = new JLabel();
         jFrame.add(imageLabel);
         jFrame.add(outputLabel);
-        jFrame.setVisible(true);
+        
 
-        /*
         userInput = new JTextArea(1,30);
         jFrame.add(userInput);
-        */
+
+        jFrame.setVisible(true);
        
         // add event listener for button click
         reviewButton.addActionListener(new ActionListener() {

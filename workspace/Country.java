@@ -7,8 +7,11 @@ public class Country
     private String imageFileName;
   // add constructors
 
-    public Country(String name, String Capital, String language, String imageFileName) {
-      
+    public Country(String name, String capital, String language, String imageFileName) {
+      this.name = name;
+      this.capital = capital;
+      this.language = language;
+      this.imageFileName = imageFileName;
     }
 
     public Country() {
